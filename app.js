@@ -1,14 +1,17 @@
 const express = require("express");
+const path = require('path');
+
 const app = express();
 const port = process.env.PORT || 5000;
 
-console.log("Hola Multi");
 
-app.get("/", (req, res) => 
+console.log("Multiprinter Loading...");
+
+app.get("/user", (req, res) => 
 {
-    res.send("Multiprinter pues!");
+    res.sendFile(path.join(__dirname+'/user/index.html'));
 });
-
+ 
 
 // Starting server listener
 app.listen(port, () => 
