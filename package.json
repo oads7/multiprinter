@@ -1,0 +1,11 @@
+{
+  "name": "multiprinter",
+  "version": "0.0.1",
+  "description": "Multiprint release system developed by copiers market",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "Alejandro Diaz",
+  "license": "ISC"
+}
