@@ -10,6 +10,8 @@ console.log("Multiprinter Loading...");
 app.get("/user", (req, res) => 
 {
     res.sendFile(path.join(__dirname+'/user/index.html'));
+console.log(__dirname);
+console.log(__dirname+'/user/index.html');
 });
  
 
