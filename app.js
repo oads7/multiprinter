@@ -9,11 +9,19 @@ console.log("Multiprinter Loading...");
 
 app.get("/user", (req, res) => 
 {
-    res.sendFile(path.join(__dirname+'/user/index.html'));
-console.log(__dirname);
-console.log(__dirname+'/user/index.html');
+    //res.sendFile(path.join(__dirname+'/user/index.html'));
+//console.log(__dirname);
+//console.log(__dirname+'/user/index.html');
 });
- 
+
+
+app.post("/suscribe", (req, res) => 
+{
+    res.send(res.socket.remoteAddress);
+//console.log(__dirname);
+//console.log(__dirname+'/user/index.html');
+});
+
 
 // Starting server listener
 app.listen(port, () => 
