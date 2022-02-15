@@ -18,7 +18,7 @@ app.get("/user", (req, res) =>
 app.get("/subscribe", (req, res) => 
 {
     const ip = req.headers['x-forwarded-for'];
-    const port = req.headers['x-forwarded-for-Port'];
+    const port = parseInt(req.headers['x-forwarded-for-Port']);
     const remote = req.connection.remoteAddress;
     
     //res.send(req.socket.remoteAddress + "<br>" + req.ip + "<br>" + req.socket.localAddress);
