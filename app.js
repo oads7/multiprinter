@@ -17,11 +17,11 @@ app.get("/user", (req, res) =>
 
 app.get("/subscribe", (req, res) => 
 {
-    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    const ip = req.headers['x-forwarded-for'];
+    const remote = req.connection.remoteAddress;
     
     //res.send(req.socket.remoteAddress + "<br>" + req.ip + "<br>" + req.socket.localAddress);
-    res.send(ip);
-    res.send("/end/");
+    res.send(ip || remote + "<br>" + ip + "<br>End");
 //console.log(__dirname);
 //console.log(__dirname+'/user/index.html');
 });
