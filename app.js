@@ -21,7 +21,7 @@ app.get("/subscribe", (req, res) =>
     const remote = req.connection.remoteAddress;
     
     //res.send(req.socket.remoteAddress + "<br>" + req.ip + "<br>" + req.socket.localAddress);
-    res.send((ip || remote).toString + "<br>" + ip.toString + "<br>End");
+    res.send((ip || remote) + "<br>" + ip + "<br>End");
 //console.log(__dirname);
 //console.log(__dirname+'/user/index.html');
 });
