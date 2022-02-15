@@ -17,7 +17,7 @@ app.get("/user", (req, res) =>
 
 app.get("/subscribe", (req, res) => 
 {
-    res.send(req.socket.remoteAddress);
+    res.send(req.socket.remoteAddress + "<br>" + req.ip);
 //console.log(__dirname);
 //console.log(__dirname+'/user/index.html');
 });
