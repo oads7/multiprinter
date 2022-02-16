@@ -23,6 +23,8 @@ app.get("/subscribe", (req, res) =>
     
     //res.send(req.socket.remoteAddress + "<br>" + req.ip + "<br>" + req.socket.localAddress);
     res.send((ip || remote) + "<br>" + ip + ":" + port + "<br>End");
+
+
 //console.log(__dirname);
 //console.log(__dirname+'/user/index.html');
 });
