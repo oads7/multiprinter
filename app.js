@@ -19,13 +19,17 @@ app.post("/subscribe", (req, res) =>
 {
 
 
-    const ip = req.headers['x-forwarded-for'];
-    const port = parseInt(req.headers['x-forwarded-for-Port']);
-    const remote = req.connection.remoteAddress;
+    res.send("Subscription updated");
+
+
+
+    //const ip = req.headers['x-forwarded-for'];
+    //const port = parseInt(req.headers['x-forwarded-for-Port']);
+    //const remote = req.connection.remoteAddress;
     
 
     //res.send(req.socket.remoteAddress + "<br>" + req.ip + "<br>" + req.socket.localAddress);
-    res.send((ip || remote) + "<br>" + ip + ":" + port + "<br>End");
+    //res.send((ip || remote) + "<br>" + ip + ":" + port + "<br>End");
 
 
 //console.log(__dirname);
