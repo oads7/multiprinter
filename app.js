@@ -15,7 +15,7 @@ app.get("/user", (req, res) =>
 });
 
 
-app.get("/subscribe", (req, res) => 
+app.post("/subscribe", (req, res) => 
 {
     const ip = req.headers['x-forwarded-for'];
     const port = parseInt(req.headers['x-forwarded-for-Port']);
