@@ -1,6 +1,7 @@
 const express = require("express");
 //const path = require("path");
 const db = require("./db.js")
+const url = require('url');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -19,7 +20,21 @@ console.log("Multiprinter Loading...");
 
 app.get("/", (req, res) => 
 {
-    db.open();
+
+    const queryObject = url.parse(req.url, true).query;
+    console.log(queryObject);
+    res.send(queryObject);
+
+
+
+
+
+    //CREATE TABLE LocalServers (id INT NOT NULL AUTO_INCREMENT, local_id VARCHAR(16), PRIMARY KEY (id))
+
+
+
+
+
     res.send("200 OK");
     //res.sendFile(path.join(__dirname+'/user/index.html'));
 //console.log(__dirname);
