@@ -1,5 +1,6 @@
 const express = require("express");
-const path = require("path");
+//const path = require("path");
+const db = require("./db.js")
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -15,6 +16,15 @@ app.use(express.json());
 
 
 console.log("Multiprinter Loading...");
+
+app.get("/", (req, res) => 
+{
+    db.open();
+    res.send("200 OK");
+    //res.sendFile(path.join(__dirname+'/user/index.html'));
+//console.log(__dirname);
+//console.log(__dirname+'/user/index.html');
+});
 
 app.get("/user", (req, res) => 
 {
