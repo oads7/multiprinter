@@ -1,8 +1,17 @@
 const express = require("express");
-const path = require('path');
+const path = require("path");
 
 const app = express();
 const port = process.env.PORT || 5000;
+
+
+var localHostIDs = [];
+
+
+// Parse URL-encoded bodies (as sent by HTML forms)
+app.use(express.urlencoded());
+// Parse JSON bodies (as sent by API clients)
+app.use(express.json());
 
 
 console.log("Multiprinter Loading...");
@@ -17,6 +26,36 @@ app.get("/user", (req, res) =>
 
 app.post("/subscribe", (req, res) => 
 {
+    // Get subscription info from any local server
+    let local = req.body;
+
+    if (localHostIDs.includes[local.id])
+    {
+
+    }
+
+    
+
+
+    let isThere = false;
+    for (let i = 0; i < localServers.length; i++)
+    {
+        let l = localServers[i];
+        if (l["id"] == local["id"])
+        {
+            isThere = true;
+            break;
+        }
+    }
+
+    if (!isThere)
+        localServers.push(local);
+    
+    console.log("json: " + JSON.stringify(localServers));
+    res.send("Login OK");
+
+
+
 
 
     res.send("Subscription updated");
