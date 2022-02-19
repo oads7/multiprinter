@@ -7,7 +7,8 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 
-var localHostIDs = [];
+var localHostIndex = [];
+var localHosts = [];
 
 
 // Parse URL-encoded bodies (as sent by HTML forms)
@@ -22,8 +23,10 @@ app.get("/", (req, res) =>
 {
 
     const queryObject = url.parse(req.url, true).query;
-    console.log(queryObject);
-    res.send(queryObject);
+
+
+    //console.log(queryObject);
+    res.send(queryObject.id);
 
 
 
@@ -35,7 +38,7 @@ app.get("/", (req, res) =>
 
 
 
-    res.send("200 OK");
+    //res.send("200 OK");
     //res.sendFile(path.join(__dirname+'/user/index.html'));
 //console.log(__dirname);
 //console.log(__dirname+'/user/index.html');
