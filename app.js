@@ -22,11 +22,17 @@ console.log("Multiprinter Loading...");
 app.get("/", (req, res) => 
 {
 
-    const queryObject = url.parse(req.url, true).query;
+
+
+
+    //const queryObject = url.parse(req.url, true).query;
+
+
+
 
 
     //console.log(queryObject);
-    res.send(queryObject.id);
+    res.send(localHostIndex.toString());
 
 
 
@@ -57,14 +63,29 @@ app.post("/subscribe", (req, res) =>
     // Get subscription info from any local server
     let local = req.body;
 
-    if (localHostIDs.includes[local.id])
-    {
 
+    //printers, jobs, IPs
+
+    
+    index = localHostIndex.indexOf(local.id)
+    localData = { printers: local.printers, jobs: [], destination: "" };
+    // If ID does not exist, add to index
+    if (index == -1)
+    {
+        localHostIndex.push(local.id);
+        localHosts.push(localData);
+    }
+    else
+    {
+        localHosts[index] = localData;
     }
 
     
+    
 
 
+
+    /*
     let isThere = false;
     for (let i = 0; i < localServers.length; i++)
     {
@@ -85,7 +106,7 @@ app.post("/subscribe", (req, res) =>
 
 
 
-
+    */
     res.send("Subscription updated");
 
 
