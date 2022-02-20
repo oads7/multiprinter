@@ -32,7 +32,7 @@ app.get("/", (req, res) =>
 
 
     //console.log(queryObject);
-    res.send(localHostIndex.toString());
+    res.send(localHostIndex.toString() + "<br><br>" + localHosts.toString());
 
 
 
