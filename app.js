@@ -16,6 +16,8 @@ app.use(express.urlencoded());
 // Parse JSON bodies (as sent by API clients)
 app.use(express.json());
 
+await timer();
+
 
 console.log("Multiprinter Loading...");
 
