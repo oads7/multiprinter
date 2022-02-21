@@ -16,7 +16,7 @@ app.use(express.urlencoded());
 // Parse JSON bodies (as sent by API clients)
 app.use(express.json());
 
-let intervalId = setInterval(timer, 1000);
+let intervalId = setInterval(timer, 30000);
 
 
 console.log("Multiprinter Loading...");
@@ -137,12 +137,12 @@ app.listen(port, () =>
 });
 
 
-const sleep = ms => new Promise(r => setTimeout(r, ms));
+//const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 function timer()
 {
-    while (true)
-    {
+    //while (true)
+    //{
         for (let i = 0; i < localHosts.length; i++)
         {
             let now = new Date();
@@ -159,7 +159,5 @@ function timer()
         
 
         console.log("Verification OK");
-
-        await sleep(30000);
-    }
+    //}
 }
