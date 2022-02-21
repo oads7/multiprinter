@@ -67,8 +67,11 @@ app.post("/subscribe", (req, res) =>
     //printers, jobs, IPs
 
     
-    index = localHostIndex.indexOf(local.id)
-    localData = { printers: local.printers, jobs: [], destination: "" };
+    index = localHostIndex.indexOf(local.id);
+
+    let now = new Date();
+    localData = { lastUpdate: now, printers: local.printers, jobs: [], destination: "" };
+
     // If ID does not exist, add to index
     if (index == -1)
     {
@@ -130,3 +133,33 @@ app.listen(port, () =>
 {
     console.log(`Example app listening on port ${port}`)
 });
+
+
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+async function timer()
+{
+    while (true)
+    {
+        for (let i = 0; i < localHosts.length; i++)
+        {
+            let now = new Date();
+            let lastUpdate = localHosts[i].lastUpdate;
+
+            let diff = (now - lastUpdate) / (1000*60);      // Minutes of difference
+            if (diff > 5)
+            {
+                localHostIndex.splice(i, 1);
+                localHosts.splice(i, 1);
+            }
+            
+        }
+        
+
+        console.log("Verification OK");
+
+        await sleep(30000);
+    }
+
+    return 0;
+}
