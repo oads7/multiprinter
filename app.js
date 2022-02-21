@@ -16,7 +16,7 @@ app.use(express.urlencoded());
 // Parse JSON bodies (as sent by API clients)
 app.use(express.json());
 
-await timer();
+let intervalId = setInterval(timer, 1000);
 
 
 console.log("Multiprinter Loading...");
@@ -139,7 +139,7 @@ app.listen(port, () =>
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-async function timer()
+function timer()
 {
     while (true)
     {
@@ -162,6 +162,4 @@ async function timer()
 
         await sleep(30000);
     }
-
-    return 0;
 }
