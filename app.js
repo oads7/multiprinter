@@ -16,6 +16,7 @@ app.use(express.urlencoded());
 // Parse JSON bodies (as sent by API clients)
 app.use(express.json());
 
+// Define timer
 let intervalId = setInterval(timer, 30000);
 
 
@@ -23,18 +24,13 @@ console.log("Multiprinter Loading...");
 
 app.get("/", (req, res) => 
 {
-
-
-
-
-    //const queryObject = url.parse(req.url, true).query;
-
+    const ip = req.headers['x-forwarded-for'];
 
 
 
 
     //console.log(queryObject);
-    res.send(localHostIndex.toString() + "<br><br>" + localHosts.toString());
+    res.send(localHostIndex.toString() + "<br><br>" + localHosts.toString() + "<br><br>" + ip.join(", "));
 
 
 
@@ -72,7 +68,9 @@ app.post("/subscribe", (req, res) =>
     index = localHostIndex.indexOf(local.id);
 
     let now = new Date();
-    localData = { lastUpdate: now, printers: local.printers, jobs: [], destination: "" };
+    const ip = req.headers['x-forwarded-for'];
+    const port = parseInt(req.headers['x-forwarded-for-Port']);
+    let localData = { lastUpdate: now, printers: local.printers, jobs: [], destinationIP: ip, destinationPort: port };
 
     // If ID does not exist, add to index
     if (index == -1)
@@ -137,7 +135,6 @@ app.listen(port, () =>
 });
 
 
-//const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 function timer()
 {
@@ -156,8 +153,5 @@ function timer()
             }
             
         }
-        
-
-        console.log("Verification OK");
     //}
 }
