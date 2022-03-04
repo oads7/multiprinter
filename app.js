@@ -30,7 +30,7 @@ app.get("/", (req, res) =>
 
 
     //console.log(queryObject);
-    res.send(localHostIndex.toString() + "<br><br>" + localHosts.toString() + "<br><br>" + ip.join(", "));
+    res.send(localHostIndex.toString() + "<br><br>" + localHosts.toString() + "<br><br>" + ip);
 
 
 
