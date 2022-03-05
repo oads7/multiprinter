@@ -24,13 +24,14 @@ console.log("Multiprinter Loading...");
 
 app.get("/", (req, res) => 
 {
-    const ip = req.headers['x-forwarded-for'];
+    const ip1 = req.headers['x-forwarded-for'];
+    const ip2 = res.headers['x-forwarded-for'];
 
 
 
 
     //console.log(queryObject);
-    res.send(localHostIndex.toString() + "<br><br>" + localHosts.toString() + "<br><br>" + ip);
+    res.send(localHostIndex.toString() + "<br><br>" + localHosts.toString() + "<br><br>Request: " + ip1 + "<br>Response: " + ip2);
 
 
 
