@@ -25,7 +25,7 @@ console.log("Multiprinter Loading...");
 app.get("/", (req, res) => 
 {
     const ip1 = req.headers['x-forwarded-for'];
-    const ip2 = res.headers['x-forwarded-for'];
+    //const ip2 = res.headers['x-forwarded-for'];
 
 
 
