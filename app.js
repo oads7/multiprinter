@@ -48,7 +48,7 @@ app.get("/", (req, res) =>
 
     //console.log(queryObject);
     //res.send(localHostIndex.toString() + "<br><br>" + localHosts.toString() + "<br><br>Request: " + ip1 + "<br>Response: " + ip2);
-    res.send(localHostIndex.toString() + "<br><br>" + localHosts.toString() + "<br><br>Request: " + ip1);
+    res.send(localHostIndex.toString() + "<br><br>" + JSON.stringify(localHosts) + "<br><br>Request: " + ip1);
 
 
 
