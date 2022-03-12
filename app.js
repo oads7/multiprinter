@@ -107,8 +107,17 @@ app.post("/registerDocument", (req, res) =>
     if (index == -1)
         res.send("Error");
     
-    localHosts[index].jobs.push({ local.document, Date.now()});
+    localHosts[index].jobs.push({ 'document' : local.document, 'date' : Date.now() });
     res.send("Document registered");
+});
+
+// Example route = /getDocuments?node=MWW03QQMMFAO9NWE
+app.get("/getDocuments", (req, res) => 
+{
+    let id = req.query.node;
+    let index = localHostIndex.indexOf(id);
+    
+    res.send(JSON.stringify(localHosts[index].jobs));
 });
 
 
