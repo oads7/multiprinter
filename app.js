@@ -107,7 +107,7 @@ app.post("/registerDocument", (req, res) =>
     if (index == -1)
         res.send("Error");
     
-    localHosts[index].jobs.push(local.document);
+    localHosts[index].jobs.push({ local.document, Date.now()});
     res.send("Document registered");
 });
 
