@@ -66,7 +66,7 @@ app.get("/", (req, res) =>
 //console.log(__dirname+'/user/index.html');
 });
 
-//"/thumbnail?id=2326493608"
+// Example route = /thumbnail?id=2326493608
 app.get("/thumbnail", (req, res) => 
 {
     let filename = req.query.id + ".png";
@@ -95,6 +95,23 @@ app.get("/thumbnail", (req, res) =>
 });
 
 
+app.post("/registerDocument", (req, res) => 
+{
+    // Get document info from local server
+    let local = req.body;
+
+    //printers, jobs, IPs
+    index = localHostIndex.indexOf(local.id);
+
+    // If ID does not exist, error
+    if (index == -1)
+        res.send("Error");
+    
+    localHosts[index].jobs.push(local.document);
+    res.send("Document registered");
+});
+
+
 app.get("/master", (req, res) => 
 {
     res.sendFile(path.join(__dirname + 'master.html'));
@@ -114,13 +131,9 @@ app.post("/subscribe", (req, res) =>
 {
     // Get subscription info from any local server
     let local = req.body;
-
+    let index = localHostIndex.indexOf(local.id);
 
     //printers, jobs, IPs
-
-    
-    index = localHostIndex.indexOf(local.id);
-
     let now = new Date();
     const ip = req.headers['x-forwarded-for'];
     const port = parseInt(req.headers['x-forwarded-for-Port']);
@@ -137,45 +150,14 @@ app.post("/subscribe", (req, res) =>
         localHosts[index] = localData;
     }
 
-    
-    
-
-
-
-    /*
-    let isThere = false;
-    for (let i = 0; i < localServers.length; i++)
-    {
-        let l = localServers[i];
-        if (l["id"] == local["id"])
-        {
-            isThere = true;
-            break;
-        }
-    }
-
-    if (!isThere)
-        localServers.push(local);
-    
-    console.log("json: " + JSON.stringify(localServers));
-    res.send("Login OK");
-
-
-
-
-    */
     res.send("Subscription updated");
-
-
 
     //const ip = req.headers['x-forwarded-for'];
     //const port = parseInt(req.headers['x-forwarded-for-Port']);
     //const remote = req.connection.remoteAddress;
     
-
     //res.send(req.socket.remoteAddress + "<br>" + req.ip + "<br>" + req.socket.localAddress);
     //res.send((ip || remote) + "<br>" + ip + ":" + port + "<br>End");
-
 
 //console.log(__dirname);
 //console.log(__dirname+'/user/index.html');
