@@ -73,14 +73,6 @@ app.get("/thumbnail", (req, res) =>
     let filename = req.query.id + ".png";
     let path = ftpPath + filename;
 
-    
-    res.send(path);
-    /*
-    console.log("ftp start");
-
-    let filename = req.query.id + ".png";
-    let path = ftpPath + filename;
-
     console.log(path);
 
     // Create a connection to ftp server
@@ -103,7 +95,7 @@ app.get("/thumbnail", (req, res) =>
         });
     });
 
-    ftpClient.end();*/
+    ftpClient.end();
     console.log("ftp success");
     
 /*
