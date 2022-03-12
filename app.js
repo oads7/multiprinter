@@ -86,12 +86,13 @@ app.get("/thumbnail", (req, res) =>
             res.setHeader('Content-Type', 'Content-Type: image/png');
             
             stream.on('open', () => {
-                res.attachment('image.png');
+                //res.attachment('image.png');
                 stream.pipe(res);
             });
         });
     });
 
+    ftpClient.end();
     console.log("ftp success");
 /*
 ftp_client.on('ready', function() {
