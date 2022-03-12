@@ -1,10 +1,28 @@
+
+//const fs = require("fs");
+
+
+
+
+const ftp = require('ftp');
 const express = require("express");
 //const path = require("path");
-const db = require("./db.js")
+
+//const db = require("./db.js")
 const url = require('url');
+
 
 const app = express();
 const port = process.env.PORT || 5000;
+
+const ftpClient = new ftp();
+const ftpPath = "/htdocs/multiprint/";
+let ftpConfig = {
+    host: "ftpupload.net", 
+    port: 21, 
+    user: "epiz_31135069", 
+    password: "haH00P8IBIuwvew"
+}
 
 
 var localHostIndex = [];
@@ -21,6 +39,7 @@ let intervalId = setInterval(timer, 30000);
 
 
 console.log("Multiprinter Loading...");
+
 
 app.get("/", (req, res) => 
 {
@@ -50,9 +69,45 @@ app.get("/", (req, res) =>
 //console.log(__dirname+'/user/index.html');
 });
 
-app.get("/user", (req, res) => 
+//"/thumbnail?id=2326493608
+app.get("/thumbnail", (req, res) => 
 {
-    //res.sendFile(path.join(__dirname+'/user/index.html'));
+    let filename = req.query.id + ".png";
+    let path = ftpPath + filename;
+
+    // Create a connection to ftp server
+    ftpClient.connect(ftpConfig);
+
+    ftpClient.on('ready', () => {
+        ftpClient.get(path, (err, stream) => {
+            if (err) console.log("ftp error");
+            stream.once('close', () => ftpClient.end());
+            stream.pipe(res);
+        });
+    });
+/*
+ftp_client.on('ready', function() {
+    ftp_client.get('foo.txt', function(err, stream) {
+      if (err) throw err;
+      stream.once('close', function() { ftp_client.end(); });
+      stream.pipe(fs.createWriteStream('foo.local-copy.txt'));
+    });
+  });
+*/
+
+});
+
+
+app.get("/master", (req, res) => 
+{
+    res.sendFile(path.join(__dirname + 'master.html'));
+//console.log(__dirname);
+//console.log(__dirname+'/user/index.html');
+});
+
+app.get("/local", (req, res) => 
+{
+    res.sendFile(path.join(__dirname + 'local.html'));
 //console.log(__dirname);
 //console.log(__dirname+'/user/index.html');
 });
