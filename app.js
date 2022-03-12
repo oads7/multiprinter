@@ -83,14 +83,14 @@ app.get("/thumbnail", (req, res) =>
             if (err) console.log("ftp error");
             stream.once('close', () => ftpClient.end());
 
-            //res.setHeader('Content-Type', 'image/png');
-            res.writeHead(200, {'Content-Type': 'image/png'});
+            res.setHeader('Content-Type', 'image/png');
+            //res.writeHead(200, {'Content-Type': 'image/png'});
 
             stream.on('open', () => {
-                //res.attachment('image.png');
+                res.attachment('image.png');
                 stream.pipe(res);
             });
-            //stream.on('finish', () => res.sendStatus(200));
+            stream.on('finish', () => res.sendStatus(200));
             
         });
     });
