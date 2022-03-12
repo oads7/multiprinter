@@ -75,6 +75,8 @@ app.get("/thumbnail", (req, res) =>
     let filename = req.query.id + ".png";
     let path = ftpPath + filename;
 
+    console.log(path);
+
     // Create a connection to ftp server
     ftpClient.connect(ftpConfig);
 
@@ -83,12 +85,11 @@ app.get("/thumbnail", (req, res) =>
             if (err) console.log("ftp error");
             stream.once('close', () => ftpClient.end());
 
-            res.setHeader('Content-Type', 'Content-Type: image/png');
+            res.setHeader('Content-Type', 'image/png');
             
             stream.on('open', () => {
                 res.attachment('image.png');
                 stream.pipe(res);
-                res.sendStatus(200);
             });
             stream.on('finish', () => res.sendStatus(200));
             
