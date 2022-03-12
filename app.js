@@ -70,6 +70,8 @@ app.get("/", (req, res) =>
 //"/thumbnail?id=2326493608"
 app.get("/thumbnail", (req, res) => 
 {
+    console.log("ftp start");
+
     let filename = req.query.id + ".png";
     let path = ftpPath + filename;
 
