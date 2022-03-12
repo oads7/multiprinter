@@ -117,6 +117,7 @@ app.get("/getDocuments", (req, res) =>
     let id = req.query.node;
     let index = localHostIndex.indexOf(id);
     
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.send(JSON.stringify(localHosts[index].jobs));
 });
 
