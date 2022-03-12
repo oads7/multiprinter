@@ -86,9 +86,12 @@ app.get("/thumbnail", (req, res) =>
             res.setHeader('Content-Type', 'Content-Type: image/png');
             
             stream.on('open', () => {
-                //res.attachment('image.png');
+                res.attachment('image.png');
                 stream.pipe(res);
+                res.sendStatus(200);
             });
+            stream.on('finish', () => res.sendStatus(200));
+            
         });
     });
 
