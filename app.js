@@ -70,6 +70,12 @@ app.get("/", (req, res) =>
 //"/thumbnail?id=2326493608"
 app.get("/thumbnail", (req, res) => 
 {
+    let filename = req.query.id + ".png";
+    let path = ftpPath + filename;
+
+    
+    res.send(path);
+    /*
     console.log("ftp start");
 
     let filename = req.query.id + ".png";
@@ -97,8 +103,9 @@ app.get("/thumbnail", (req, res) =>
         });
     });
 
-    ftpClient.end();
+    ftpClient.end();*/
     console.log("ftp success");
+    
 /*
 ftp_client.on('ready', function() {
     ftp_client.get('foo.txt', function(err, stream) {
