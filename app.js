@@ -69,7 +69,7 @@ app.get("/", (req, res) =>
 //console.log(__dirname+'/user/index.html');
 });
 
-//"/thumbnail?id=2326493608
+//"/thumbnail?id=2326493608"
 app.get("/thumbnail", (req, res) => 
 {
     let filename = req.query.id + ".png";
@@ -82,9 +82,17 @@ app.get("/thumbnail", (req, res) =>
         ftpClient.get(path, (err, stream) => {
             if (err) console.log("ftp error");
             stream.once('close', () => ftpClient.end());
-            stream.pipe(res);
+
+            res.setHeader('Content-Type', 'Content-Type: image/png');
+            
+            stream.on('open', () => {
+                res.attachment('image.png');
+                stream.pipe(res);
+            });
         });
     });
+
+    console.log("ftp success");
 /*
 ftp_client.on('ready', function() {
     ftp_client.get('foo.txt', function(err, stream) {
