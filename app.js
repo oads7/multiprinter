@@ -1,12 +1,9 @@
 
 //const fs = require("fs");
 
-
-
-
 const ftp = require('ftp');
 const express = require("express");
-//const path = require("path");
+const path = require("path");
 
 //const db = require("./db.js")
 const url = require('url');
@@ -30,7 +27,7 @@ var localHosts = [];
 
 
 // Parse URL-encoded bodies (as sent by HTML forms)
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 // Parse JSON bodies (as sent by API clients)
 app.use(express.json());
 
