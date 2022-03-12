@@ -12,7 +12,6 @@ const path = require("path");
 const app = express();
 const port = process.env.PORT || 5000;
 
-const ftpClient = new ftp();
 const ftpPath = "/htdocs/multiprint/";
 let ftpConfig = {
     host: "ftpupload.net", 
@@ -73,41 +72,26 @@ app.get("/thumbnail", (req, res) =>
     let filename = req.query.id + ".png";
     let path = ftpPath + filename;
 
-    console.log(path);
-
     // Create a connection to ftp server
+    const ftpClient = new ftp();
     ftpClient.connect(ftpConfig);
-
-    ftpClient.on('ready', () => {
-        ftpClient.get(path, (err, stream) => {
-            if (err) console.log("ftp error");
-            stream.once('close', () => ftpClient.end());
-
+    
+    
+    ftpClient.on('ready', () => 
+    {
+        ftpClient.get(path, (err, stream) => 
+        {
             res.setHeader('Content-Type', 'image/png');
-            //res.writeHead(200, {'Content-Type': 'image/png'});
+            res.setHeader('Vary', 'Accept-Encoding');
 
-            stream.on('open', () => {
-                res.attachment('image.png');
-                stream.pipe(res);
+            stream.pipe(res);
+            stream.on('end', () => 
+            {
+                res.end();
+                ftpClient.end();
             });
-            stream.on('finish', () => res.sendStatus(200));
-            
         });
     });
-
-    ftpClient.end();
-    console.log("ftp success");
-    
-/*
-ftp_client.on('ready', function() {
-    ftp_client.get('foo.txt', function(err, stream) {
-      if (err) throw err;
-      stream.once('close', function() { ftp_client.end(); });
-      stream.pipe(fs.createWriteStream('foo.local-copy.txt'));
-    });
-  });
-*/
-
 });
 
 
