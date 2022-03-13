@@ -117,10 +117,11 @@ app.get("/getDocuments", (req, res) =>
     let id = req.query.node;
     let index = localHostIndex.indexOf(id);
     
-    res.header('Access-Control-Allow-Origin', '*');
-	res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
-	res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-	res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+    res.setHeader('Content-Type', 'text/plain');
+    //res.header('Access-Control-Allow-Origin', '*');
+	//res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+	//res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+	//res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
     res.send(JSON.stringify(localHosts[index].jobs));
 });
 
