@@ -147,21 +147,26 @@ app.post("/subscribe", (req, res) =>
     let local = req.body;
     let index = localHostIndex.indexOf(local.id);
 
-    //printers, jobs, IPs
     let now = new Date();
     const ip = req.headers['x-forwarded-for'];
     const port = parseInt(req.headers['x-forwarded-for-Port']);
-    let localData = { lastUpdate: now, printers: local.printers, jobs: [], destinationIP: ip, destinationPort: port };
 
     // If ID does not exist, add to index
     if (index == -1)
     {
+        //printers, jobs, IPs
+        let localData = { lastUpdate: now, printers: local.printers, jobs: [], destinationIP: ip, destinationPort: port };
+
         localHostIndex.push(local.id);
         localHosts.push(localData);
     }
     else
     {
-        localHosts[index] = localData;
+        //localHosts[index] = localData;
+        localHosts[index].lastUpdate = now;
+        localHosts[index].printers = local.printers;
+        localHosts[index].destinationIP = ip;
+        localHosts[index].destinationPort = port;
     }
 
     res.send("Subscription updated");
