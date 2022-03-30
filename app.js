@@ -22,8 +22,8 @@ let ftpConfig = {
 }
 
 
-var localHostIndex = [];
-var localHosts = [];
+var localNodesIndex = [];
+var localNodes = [];
 
 
 // Parse URL-encoded bodies (as sent by HTML forms)
@@ -48,16 +48,16 @@ app.get("/", (req, res) =>
 
 
     //console.log(queryObject);
-    //res.send(localHostIndex.toString() + "<br><br>" + localHosts.toString() + "<br><br>Request: " + ip1 + "<br>Response: " + ip2);
+    //res.send(localNodesIndex.toString() + "<br><br>" + localNodes.toString() + "<br><br>Request: " + ip1 + "<br>Response: " + ip2);
     
 
 
     /*
-    let localHostProxy = ip1.split(',');
-    let options = { host: localHostProxy[0],
+    let localNodesProxy = ip1.split(',');
+    let options = { host: localNodesProxy[0],
                     port: 60001,
                     path: ip1,
-                    headers: { Host: localHost }
+                    headers: { Host: localNodes }
     };
     http.post(options, res => {
     console.log(res);
@@ -65,13 +65,29 @@ app.get("/", (req, res) =>
     });
 */
     console.log("--START--");
+/*
+    const local = localNodes[0];
+console.log(local.destinationIP);
+    let localNodeProxy = local.destinationIP.split(', ');
+
+    localNodeIp = localNodeProxy[0];
+    localNodeProxy.splice(0, 1);
+
+
+    for (let i = localNodeProxy.length - 1; i >= 0; i--)
+    {
+
+    }
+*/
+
+    
     let message = "SERVER - OK Released";
     const local = localHosts[0];
 
     console.log(local.destinationIP);
     let localHostProxy = local.destinationIP.split(', ');
 
-    const options = { hostname: localHostProxy[1],
+    const options = { host: localHostProxy[1],
                       port: 80,
                       path: '',
                       method: 'POST',
@@ -82,7 +98,8 @@ app.get("/", (req, res) =>
                                  'Forwarded-Port': 64001
                                  //'X-Forwarded-For': local.destinationIP,
                                  //'X-Forwarded-For-Port': 64001
-                               }
+                               },
+                      end: true
                     };
     
     const localRequest = http.request(options, localResponse => 
@@ -102,42 +119,8 @@ app.get("/", (req, res) =>
     
     localRequest.write(message);
     localRequest.end();
-
-
-
-
-
-/*
-    const data = JSON.stringify({
-      todo: 'Buy the milk'
-    })
-    
-    const options = {
-      hostname: 'whatever.com',
-      port: 443,
-      path: '/todos',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Content-Length': data.length
-      }
-    }
-    
-    const req = https.request(options, res => {
-      console.log(`statusCode: ${res.statusCode}`)
-    
-      res.on('data', d => {
-        process.stdout.write(d)
-      })
-    })
-    
-    req.on('error', error => {
-      console.error(error)
-    })
-    
-    req.write(data)
-    req.end()
 */
+
 
 
     
@@ -167,7 +150,7 @@ app.get("/", (req, res) =>
     //CREATE TABLE LocalServers (id INT NOT NULL AUTO_INCREMENT, local_id VARCHAR(16), PRIMARY KEY (id))
 
 
-    res.send(localHostIndex.toString() + "<br><br>" + JSON.stringify(localHosts) + "<br><br>Request: " + ip1);
+    res.send(localNodesIndex.toString() + "<br><br>" + JSON.stringify(localNodes) + "<br><br>Request: " + ip1);
 
 
 
@@ -212,13 +195,13 @@ app.post("/registerDocument", (req, res) =>
     let local = req.body;
 
     //printers, jobs, IPs
-    index = localHostIndex.indexOf(local.id);
+    index = localNodesIndex.indexOf(local.id);
 
     // If ID does not exist, error
     if (index == -1)
         res.send("Error");
     
-    localHosts[index].jobs.push({ document : local.document, date : Date.now() });
+    localNodes[index].jobs.push({ document : local.document, date : Date.now() });
     res.send("Document registered");
 });
 
@@ -226,14 +209,14 @@ app.post("/registerDocument", (req, res) =>
 app.get("/getDocuments", (req, res) => 
 {
     let id = req.query.node;
-    let index = localHostIndex.indexOf(id);
+    let index = localNodesIndex.indexOf(id);
     
     res.setHeader('Content-Type', 'text/plain');
     res.setHeader('Access-Control-Allow-Origin', '*');
 	res.setHeader('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
 	res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
 	res.setHeader('Allow', 'GET, POST');
-    res.send(JSON.stringify(localHosts[index].jobs));
+    res.send(JSON.stringify(localNodes[index].jobs));
 });
 
 
@@ -256,7 +239,7 @@ app.post("/subscribe", (req, res) =>
 {
     // Get subscription info from any local server
     let local = req.body;
-    let index = localHostIndex.indexOf(local.id);
+    let index = localNodesIndex.indexOf(local.id);
 
     let now = new Date();
     const ip = req.headers['x-forwarded-for'];
@@ -268,16 +251,16 @@ app.post("/subscribe", (req, res) =>
         //printers, jobs, IPs
         let localData = { lastUpdate: now, printers: local.printers, jobs: [], destinationIP: ip, destinationPort: port };
 
-        localHostIndex.push(local.id);
-        localHosts.push(localData);
+        localNodesIndex.push(local.id);
+        localNodes.push(localData);
     }
     else
     {
-        //localHosts[index] = localData;
-        localHosts[index].lastUpdate = now;
-        localHosts[index].printers = local.printers;
-        localHosts[index].destinationIP = ip;
-        localHosts[index].destinationPort = port;
+        //localNodes[index] = localData;
+        localNodes[index].lastUpdate = now;
+        localNodes[index].printers = local.printers;
+        localNodes[index].destinationIP = ip;
+        localNodes[index].destinationPort = port;
     }
 
     res.send("Subscription updated");
@@ -306,16 +289,16 @@ function timer()
 {
     //while (true)
     //{
-        for (let i = 0; i < localHosts.length; i++)
+        for (let i = 0; i < localNodes.length; i++)
         {
             let now = new Date();
-            let lastUpdate = localHosts[i].lastUpdate;
+            let lastUpdate = localNodes[i].lastUpdate;
 
             let diff = (now - lastUpdate) / (1000*60);      // Minutes of difference
             if (diff > 5)
             {
-                localHostIndex.splice(i, 1);
-                localHosts.splice(i, 1);
+                localNodesIndex.splice(i, 1);
+                localNodes.splice(i, 1);
             }
             
         }
