@@ -82,18 +82,18 @@ console.log(local.destinationIP);
 
     
     let message = "SERVER - OK Released";
-    const local = localHosts[0];
+    const local = localNodes[0];
 
     console.log(local.destinationIP);
-    let localHostProxy = local.destinationIP.split(', ');
+    let localNodeProxy = local.destinationIP.split(', ');
 
-    const options = { host: localHostProxy[localHostProxy.length-1],
+    const options = { host: localNodeProxy[localNodeProxy.length-1],
                       port: 80,
                       path: '',
                       method: 'POST',
                       headers: { 'Content-Type': 'text/plain',
                                  'Content-Length': message.length,
-                                 'Host': localHostProxy[0],
+                                 'Host': localNodeProxy[0],
                                  'Forwarded': local.destinationIP,
                                  'Forwarded-Port': 64001
                                  //'X-Forwarded-For': local.destinationIP,
