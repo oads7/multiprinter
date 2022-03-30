@@ -65,17 +65,17 @@ app.get("/", (req, res) =>
     });
 */
     let message = "SERVER - OK Released";
-    const local = localHosts[0]
+    const local = localHosts[0];
     console.log(local.destinationIP);
-    let localHostProxy = local.destinationIP.split(',');
+    let localHostProxy = local.destinationIP.split(', ');
 
     const options = { hostname: localHostProxy[0],
-                      port: 443,
+                      port: 80,
                       path: '',
                       method: 'POST',
                       headers: { 'Content-Type': 'text/plain',
                                  'Content-Length': message.length,
-                                 'x-forwarded-for': localHosts[0].destinationIP,
+                                 'x-forwarded-for': local.destinationIP,
                                  'x-forwarded-for-Port': 64001
                                }
                     };
