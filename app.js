@@ -65,7 +65,9 @@ app.get("/", (req, res) =>
     });
 */
     let message = "SERVER - OK Released";
-    let localHostProxy = localHosts[0].destinationIP.split(',');
+    const local = localHosts[0]
+    console.log(local.destinationIP);
+    let localHostProxy = local.destinationIP.split(',');
 
     const options = { hostname: localHostProxy[0],
                       port: 443,
