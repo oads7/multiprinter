@@ -1,7 +1,7 @@
 
 //const fs = require("fs");
 
-const http = requite('http');
+const http = require('http');
 const ftp = require('ftp');
 const express = require("express");
 const path = require("path");
