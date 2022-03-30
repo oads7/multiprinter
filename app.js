@@ -49,8 +49,7 @@ app.get("/", (req, res) =>
 
     //console.log(queryObject);
     //res.send(localHostIndex.toString() + "<br><br>" + localHosts.toString() + "<br><br>Request: " + ip1 + "<br>Response: " + ip2);
-    res.send(localHostIndex.toString() + "<br><br>" + JSON.stringify(localHosts) + "<br><br>Request: " + ip1);
-
+    
 
 
     /*
@@ -156,6 +155,7 @@ app.get("/", (req, res) =>
     //CREATE TABLE LocalServers (id INT NOT NULL AUTO_INCREMENT, local_id VARCHAR(16), PRIMARY KEY (id))
 
 
+    res.send(localHostIndex.toString() + "<br><br>" + JSON.stringify(localHosts) + "<br><br>Request: " + ip1);
 
 
 
