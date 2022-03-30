@@ -42,7 +42,7 @@ console.log("Multiprinter Loading...");
 app.get("/", (req, res) => 
 {
     const ip1 = req.headers['x-forwarded-for'];
-    //const ip2 = res.headers['x-forwarded-for'];
+    const ip2 = res.header['x-forwarded-for'];
 
 
 
@@ -150,7 +150,7 @@ console.log(local.destinationIP);
     //CREATE TABLE LocalServers (id INT NOT NULL AUTO_INCREMENT, local_id VARCHAR(16), PRIMARY KEY (id))
 
 
-    res.send(localNodesIndex.toString() + "<br><br>" + JSON.stringify(localNodes) + "<br><br>Request: " + ip1);
+    res.send(localNodesIndex.toString() + "<br><br>" + JSON.stringify(localNodes) + "<br><br>Request: " + ip1 + "<br><br>Response: " + ip2);
 
 
 
