@@ -65,36 +65,23 @@ app.get("/", (req, res) =>
     });
 */
     console.log("--START--");
-/*
-    const local = localNodes[0];
-console.log(local.destinationIP);
-    let localNodeProxy = local.destinationIP.split(', ');
 
-    localNodeIp = localNodeProxy[0];
-    localNodeProxy.splice(0, 1);
-
-
-    for (let i = localNodeProxy.length - 1; i >= 0; i--)
-    {
-
-    }
-*/
-
-    
     let message = "SERVER - OK Released";
     const local = localNodes[0];
 
     console.log(local.destinationIP);
     let localNodeProxy = local.destinationIP.split(', ');
+    localNodeProxy.reverse();
+    console.log(JSON.stringify(localNodeProxy));
 
-    const options = { host: localNodeProxy[localNodeProxy.length-1],
+    const options = { host: localNodeProxy[0],
                       port: 80,
                       path: '',
                       method: 'POST',
                       headers: { 'Content-Type': 'text/plain',
                                  'Content-Length': message.length,
-                                 'Host': localNodeProxy[0],
-                                 'Forwarded': local.destinationIP,
+                                 'Host': localNodeProxy[localNodeProxy.length-1],
+                                 'Forwarded': JSON.stringify(localNodeProxy),
                                  'Forwarded-Port': 64001
                                  //'X-Forwarded-For': local.destinationIP,
                                  //'X-Forwarded-For-Port': 64001
