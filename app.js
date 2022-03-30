@@ -77,21 +77,21 @@ app.get("/", (req, res) =>
                                }
                     };
     
-    const req = http.request(options, res => 
+    const localRequest = http.request(options, localResponse => 
     {
-        console.log(`ProxyReleaser statusCode: ${res.statusCode}`)
+        console.log(`ProxyReleaser statusCode: ${localResponse.statusCode}`)
         
-        res.on('data', d => {
+        localResponse.on('data', d => {
             process.stdout.write(d)
         })
     });
         
-    req.on('error', error => {
-    console.error(error)
+    localRequest.on('error', error => {
+        console.error(error)
     });
         
-    req.write(message);
-    req.end();
+    localRequest.write(message);
+    localRequest.end();
 
 
 
