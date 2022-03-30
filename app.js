@@ -77,8 +77,8 @@ app.get("/", (req, res) =>
                       method: 'POST',
                       headers: { 'Content-Type': 'text/plain',
                                  'Content-Length': message.length,
-                                 'x-forwarded-for': local.destinationIP,
-                                 'x-forwarded-for-Port': 64001
+                                 'X-Forwarded-For': local.destinationIP,
+                                 'X-Forwarded-For-Port': 64001
                                }
                     };
     
