@@ -87,7 +87,7 @@ console.log(local.destinationIP);
     console.log(local.destinationIP);
     let localHostProxy = local.destinationIP.split(', ');
 
-    const options = { host: localHostProxy[1],
+    const options = { host: localHostProxy[localHostProxy.length-1],
                       port: 80,
                       path: '',
                       method: 'POST',
