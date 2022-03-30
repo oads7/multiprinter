@@ -1,3 +1,4 @@
 package-lock.json
 upload.cmd
 database-credentials.txt
+*.code-workspace
