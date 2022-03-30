@@ -66,6 +66,7 @@ app.get("/", (req, res) =>
 */
     console.log("--START--");
 
+    /*
     let message = "SERVER - OK Released";
     const local = localNodes[0];
 
@@ -81,8 +82,8 @@ app.get("/", (req, res) =>
                       headers: { 'Content-Type': 'text/plain',
                                  'Content-Length': message.length,
                                  'Host': localNodeProxy[localNodeProxy.length-1],
-                                 'Forwarded': JSON.stringify(localNodeProxy),
-                                 'Forwarded-Port': 64001
+                                 'X-Forwarded-For': JSON.stringify(localNodeProxy),
+                                 'X-Forwarded-For-Port': 64001
                                  //'X-Forwarded-For': local.destinationIP,
                                  //'X-Forwarded-For-Port': 64001
                                },
@@ -108,7 +109,7 @@ app.get("/", (req, res) =>
     localRequest.end();
 
 
-
+*/
 
     
     console.log("--END--");
@@ -137,7 +138,8 @@ app.get("/", (req, res) =>
     //CREATE TABLE LocalServers (id INT NOT NULL AUTO_INCREMENT, local_id VARCHAR(16), PRIMARY KEY (id))
 
 
-    res.send(localNodesIndex.toString() + "<br><br>" + JSON.stringify(localNodes) + "<br><br>Request: " + ip1 + "<br><br>Response: " + ip2);
+    //res.send(localNodesIndex.toString() + "<br><br>" + JSON.stringify(localNodes) + "<br><br>Request: " + ip1 + "<br><br>Response: " + ip2);
+    res.send(JSON.stringify(res));
 
 
 
