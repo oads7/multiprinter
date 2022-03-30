@@ -139,7 +139,8 @@ app.get("/", (req, res) =>
 
 
     //res.send(localNodesIndex.toString() + "<br><br>" + JSON.stringify(localNodes) + "<br><br>Request: " + ip1 + "<br><br>Response: " + ip2);
-    res.send(JSON.stringify(res));
+    let value = JSON.stringify(res);
+    res.send(value);
 
 
 
