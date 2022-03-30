@@ -119,7 +119,7 @@ console.log(local.destinationIP);
     
     localRequest.write(message);
     localRequest.end();
-*/
+
 
 
 
