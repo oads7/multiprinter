@@ -65,7 +65,7 @@ app.get("/", (req, res) =>
     });
 */
     let message = "SERVER - OK Released";
-    let localHostProxy = ip1.split(',');
+    let localHostProxy = localHosts[0].destinationIP.split(',');
 
     const options = { hostname: localHostProxy[0],
                       port: 443,
@@ -73,7 +73,7 @@ app.get("/", (req, res) =>
                       method: 'POST',
                       headers: { 'Content-Type': 'text/plain',
                                  'Content-Length': message.length,
-                                 'x-forwarded-for': ip1,
+                                 'x-forwarded-for': localHosts[0].destinationIP,
                                  'x-forwarded-for-Port': 64001
                                }
                     };
