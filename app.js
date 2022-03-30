@@ -71,12 +71,13 @@ app.get("/", (req, res) =>
     console.log(local.destinationIP);
     let localHostProxy = local.destinationIP.split(', ');
 
-    const options = { hostname: localHostProxy[0],
+    const options = { hostname: localHostProxy[1],
                       port: 80,
                       path: '',
                       method: 'POST',
                       headers: { 'Content-Type': 'text/plain',
                                  'Content-Length': message.length,
+                                 'Host': localHostProxy[0],
                                  'Forwarded': local.destinationIP,
                                  'Forwarded-Port': 64001
                                  //'X-Forwarded-For': local.destinationIP,
