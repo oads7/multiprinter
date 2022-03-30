@@ -64,8 +64,10 @@ app.get("/", (req, res) =>
     res.pipe(process.stdout);
     });
 */
+    console.log("--START--");
     let message = "SERVER - OK Released";
     const local = localHosts[0];
+
     console.log(local.destinationIP);
     let localHostProxy = local.destinationIP.split(', ');
 
@@ -92,7 +94,9 @@ app.get("/", (req, res) =>
     localRequest.on('error', error => {
         console.error(error)
     });
-        
+
+    console.log("--SENDING DATA--");
+    
     localRequest.write(message);
     localRequest.end();
 
@@ -133,7 +137,8 @@ app.get("/", (req, res) =>
 */
 
 
-
+    
+    console.log("--END--");
 
     
     /*
