@@ -1,6 +1,7 @@
 
 //const fs = require("fs");
 
+const http = requite('http');
 const ftp = require('ftp');
 const express = require("express");
 const path = require("path");
@@ -52,6 +53,104 @@ app.get("/", (req, res) =>
 
 
 
+    /*
+    let localHostProxy = ip1.split(',');
+    let options = { host: localHostProxy[0],
+                    port: 60001,
+                    path: ip1,
+                    headers: { Host: localHost }
+    };
+    http.post(options, res => {
+    console.log(res);
+    res.pipe(process.stdout);
+    });
+*/
+    message = "OK Released";
+
+    const options = { hostname: 'whatever.com',
+                      port: 443,
+                      path: '/todos',
+                      method: 'POST',
+                      headers: { 'Content-Type': 'text/plain',
+                                 'Content-Length': message.length,
+                                 'x-forwarded-for': ip1
+                               }
+                    };
+    
+    const req = http.request(options, res => 
+    {
+        console.log(`ProxyReleaser statusCode: ${res.statusCode}`)
+        
+        res.on('data', d => {
+            process.stdout.write(d)
+        })
+    });
+        
+    req.on('error', error => {
+    console.error(error)
+    });
+        
+    req.write(message);
+    req.end();
+
+
+
+
+
+/*
+    const data = JSON.stringify({
+      todo: 'Buy the milk'
+    })
+    
+    const options = {
+      hostname: 'whatever.com',
+      port: 443,
+      path: '/todos',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': data.length
+      }
+    }
+    
+    const req = https.request(options, res => {
+      console.log(`statusCode: ${res.statusCode}`)
+    
+      res.on('data', d => {
+        process.stdout.write(d)
+      })
+    })
+    
+    req.on('error', error => {
+      console.error(error)
+    })
+    
+    req.write(data)
+    req.end()
+*/
+
+
+
+
+    
+    /*
+    var localClientSocket = new http.Socket();
+    localClientSocket.connect (1337, '127.0.0.1', function() {
+        console.log('Connected');
+        localClientSocket.write('Hello, server! Love, Client.');
+    });
+    */
+
+    /*
+    client.on('data', function(data) {
+        console.log('Received: ' + data);
+        client.destroy(); // kill client after server's response
+    });
+
+    client.on('close', function() {
+        console.log('Connection closed');
+    });
+    */
 
 
     //CREATE TABLE LocalServers (id INT NOT NULL AUTO_INCREMENT, local_id VARCHAR(16), PRIMARY KEY (id))
