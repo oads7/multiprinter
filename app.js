@@ -64,15 +64,17 @@ app.get("/", (req, res) =>
     res.pipe(process.stdout);
     });
 */
-    message = "OK Released";
+    let message = "SERVER - OK Released";
+    let localHostProxy = ip1.split(',');
 
-    const options = { hostname: 'whatever.com',
+    const options = { hostname: localHostProxy[0],
                       port: 443,
-                      path: '/todos',
+                      path: '',
                       method: 'POST',
                       headers: { 'Content-Type': 'text/plain',
                                  'Content-Length': message.length,
-                                 'x-forwarded-for': ip1
+                                 'x-forwarded-for': ip1,
+                                 'x-forwarded-for-Port': 64001
                                }
                     };
     
