@@ -139,8 +139,8 @@ app.get("/", (req, res) =>
 
 
     //res.send(localNodesIndex.toString() + "<br><br>" + JSON.stringify(localNodes) + "<br><br>Request: " + ip1 + "<br><br>Response: " + ip2);
-    let value = JSON.stringify(res);
-    res.send(value);
+    let value = JSON.stringify(res.socket.remoteAddress) + "<br>" + JSON.stringify(res.socket.remotePort);
+    res.send("JSON:<br><br>" + value);
 
 
 
