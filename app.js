@@ -69,7 +69,7 @@ app.get("/", (req, res) =>
     console.log(local.destinationIP);
     let localHostProxy = local.destinationIP.split(', ');
 
-    const options = { hostname: localHostProxy[0],
+    const options = { hostname: localHostProxy[1],
                       port: 80,
                       path: '',
                       method: 'POST',
