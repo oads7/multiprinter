@@ -30,8 +30,8 @@ function httpGet(request, response)
 
         response.setHeader('Access-Control-Allow-Origin', '*');
         response.setHeader('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
-        response.setHeader('Access-Control-Allow-Methods', 'GET, POST','DELETE');
-        response.setHeader('Allow', 'GET, POST','DELETE');
+        response.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE');
+        response.setHeader('Allow', 'GET, POST, DELETE');
 
         response.status(200).send(dbContext.getQueue(index));
     }
@@ -54,8 +54,8 @@ function httpPost(request, response)
 
         response.setHeader('Access-Control-Allow-Origin', '*');
         response.setHeader('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
-        response.setHeader('Access-Control-Allow-Methods', 'GET, POST','DELETE');
-        response.setHeader('Allow', 'GET, POST','DELETE');
+        response.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE');
+        response.setHeader('Allow', 'GET, POST, DELETE');
 
         if (dbContext.addToQueue(index, target.printer, target.document) === true)
         {
@@ -85,8 +85,8 @@ function httpDelete(request, response)
 
         response.setHeader('Access-Control-Allow-Origin', '*');
         response.setHeader('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
-        response.setHeader('Access-Control-Allow-Methods', 'GET, POST','DELETE');
-        response.setHeader('Allow', 'GET, POST','DELETE');
+        response.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE');
+        response.setHeader('Allow', 'GET, POST, DELETE');
 
         if (dbContext.removeFromQueue(index, target.document) === true)
         {
