@@ -43,13 +43,6 @@ function httpPost(request, response)
     let target = request.body;
     let index = dbContext.index(target.id);
 
-    response.setHeader('Content-Type', 'application/json');
-
-    response.setHeader('Access-Control-Allow-Origin', '*');
-    response.setHeader('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
-    response.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE');
-    response.setHeader('Allow', 'GET, POST, DELETE');
-
     if (index == -1) 
     {
         // Local ID not found
@@ -59,6 +52,13 @@ function httpPost(request, response)
     {
         if (dbContext.addToQueue(index, target.printer, target.document) === true)
         {
+            response.setHeader('Content-Type', 'application/json');
+
+            response.header('Access-Control-Allow-Origin', '*');
+            response.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+            response.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+            response.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+
             response.status(200).send("Document queued");
         }
         else
