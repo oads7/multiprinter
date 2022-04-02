@@ -50,6 +50,13 @@ function httpPost(request, response)
     }
     else
     {
+        response.setHeader('Content-Type', 'application/json');
+
+        response.setHeader('Access-Control-Allow-Origin', '*');
+        response.setHeader('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+        response.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+        response.setHeader('Allow', 'GET, POST');
+
         if (dbContext.addToQueue(index, target.printer, target.document) === true)
         {
             response.status(200).send("Document queued");
@@ -74,6 +81,13 @@ function httpDelete(request, response)
     }
     else
     {
+        response.setHeader('Content-Type', 'application/json');
+
+        response.setHeader('Access-Control-Allow-Origin', '*');
+        response.setHeader('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+        response.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+        response.setHeader('Allow', 'GET, POST');
+
         if (dbContext.removeFromQueue(index, target.document) === true)
         {
             response.status(200).send("Document queued");
