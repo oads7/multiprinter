@@ -2,6 +2,7 @@
 
 // Imports
 const dbContext = require('../dbContext');
+const { StatusResponse } = require('../Entities/statusResponse');
 
 // Exports
 const documentsController = 
@@ -51,7 +52,9 @@ function httpPost(request, response)
     else
     {
         dbContext.addDocument(index, target.document);
-        response.status(200).send("Document registered");
+
+        let status = StatusResponse.success("Document registered")
+        response.status(200).send(status);
     }
 }
 
