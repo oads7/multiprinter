@@ -12,7 +12,7 @@ class StatusResponse
     {
         this.status = StatusResponseCode.Success;
         this.content = "";
-        this.command = {};
+        this.command = [];
         this.error = "";
     }
     static success(content)
@@ -21,7 +21,7 @@ class StatusResponse
 
         r.status = StatusResponseCode.Success;
         r.content = content;
-        r.command = {};
+        r.command = [];
         r.error = "";
 
         return r;
@@ -32,7 +32,7 @@ class StatusResponse
 
         r.status = StatusResponseCode.Error;
         r.content = "";
-        r.command = {};
+        r.command = [];
         r.error = message;
 
         return r;
