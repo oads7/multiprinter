@@ -7,7 +7,8 @@ const dbContext = require('./dbContext');
 const thumbnailController = require('./controllers/thumbnail');
 const nodesController = require('./controllers/nodes');
 const documentsController = require('./controllers/documents');
-const queueController = require('./controllers/queue')
+const queueController = require('./controllers/queue');
+const commandController = require('./controllers/command');
 
 // Exports
 const Server = 
@@ -49,6 +50,8 @@ function entryPoint(port)
     App.get("/queue", queueController.get);
     App.post("/queue", queueController.post);
     App.delete("/queue", queueController.delete);
+
+    App.get("/command", commandController.get);
 
     // Starting server listener
     App.listen(port, listener);

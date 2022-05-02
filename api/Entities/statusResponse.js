@@ -20,6 +20,15 @@ class StatusResponse
 
         return this;
     }
+    static error(message)
+    {
+        this.status = StatusResponseCode.Error;
+        this.content = "";
+        this.command = {};
+        this.error = message;
+
+        return this;
+    }
 }
 
 const StatusResponseCode = 
