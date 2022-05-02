@@ -1,7 +1,7 @@
 'use strict';
 
 // Imports
-import { StatusResponse, StatusResponseCode } from '../Entities/statusResponse';
+const { StatusResponse, StatusResponseCode } =  require('../Entities/statusResponse');
 const dbContext = require('../dbContext');
 
 
@@ -30,7 +30,7 @@ function httpGet(request, response)
     else
     {
         response.setHeader('Content-Type', 'application/json');
-        
+
         response.status(200).send(dbContext.getQueue(index));
     }
 }

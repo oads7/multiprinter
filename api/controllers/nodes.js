@@ -1,7 +1,7 @@
 'use strict';
 
 // Imports
-import { StatusResponse, StatusResponseCode } from '../Entities/statusResponse';
+const { StatusResponse, StatusResponseCode } =  require('../Entities/statusResponse');
 const dbContext = require('../dbContext');
 
 // Exports
@@ -38,7 +38,7 @@ function httpPost(request, response)
 
     // Send queue and success code
     success = StatusResponse.success("Subscription updated");
-    
+
     response.setHeader('Content-Type', 'application/json');
     response.status(200).send(success);
 }
