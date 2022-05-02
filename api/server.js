@@ -36,7 +36,7 @@ function entryPoint(port)
         dbContext.createNode("DASDASHDJUAWJAKASD", ["Sharp 1", "Sharp 2", "Sharp 3", "Sharp 4"])
         dbContext.createNode("SA8ASADJASFJASZMCX", ["Toshiba 1", "Toshiba 2", "Toshiba 3"])
 
-        res.send("OK 200... Eres super genial.<rb>" + dbContext.getAllNodes());
+        res.send("OK 200... Eres super genial.<br/><br/>" + dbContext.getAllNodes());
     });
     App.get("/thumbnail", thumbnailController.get);
     

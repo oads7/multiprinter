@@ -10,6 +10,7 @@ class localNode
         this.printers = printers;
         this.jobs = [];
         this.queue = [];
+        this.commands = [];
         this.lastConnection = new Date();
     }
 }

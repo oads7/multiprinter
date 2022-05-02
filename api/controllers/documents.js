@@ -1,8 +1,8 @@
 'use strict';
 
 // Imports
+const { StatusResponse, StatusResponseCode } =  require('../Entities/statusResponse');
 const dbContext = require('../dbContext');
-const { StatusResponse } = require('../Entities/statusResponse');
 
 // Exports
 const documentsController = 
@@ -23,18 +23,17 @@ function httpGet(request, response)
     if (index == -1) 
     {
         // Local ID not found
-        response.status(404).send('');
+        let error = StatusResponse.error("Local ID not found");
+    
+        response.setHeader('Content-Type', 'application/json');
+        response.status(404).send(JSON.stringify(error));
     }
     else
     {
+        let success = StatusResponse.success(dbContext.getDocuments(index));
+
         response.setHeader('Content-Type', 'application/json');
-
-        response.setHeader('Access-Control-Allow-Origin', '*');
-        response.setHeader('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
-        response.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-        response.setHeader('Allow', 'GET, POST');
-
-        response.status(200).send(dbContext.getDocuments(index));
+        response.status(200).send(JSON.stringify(success));
     }
 }
 
@@ -47,14 +46,18 @@ function httpPost(request, response)
     if (index == -1) 
     {
         // Local ID not found
-        response.status(404).send('');
+        let error = StatusResponse.error("Local ID not found");
+    
+        response.setHeader('Content-Type', 'application/json');
+        response.status(404).send(JSON.stringify(error));
     }
     else
     {
-        dbContext.addDocument(index, target.document);
+        dbContext.addDocument(index, target.document)
+        let success = StatusResponse.success("Document registered");
 
-        let status = StatusResponse.success("Document registered")
-        response.status(200).send(status);
+        response.setHeader('Content-Type', 'application/json');
+        response.status(200).send(JSON.stringify(success));
     }
 }
 
@@ -67,17 +70,19 @@ function httpDelete(request, response)
     if (index == -1) 
     {
         // Local ID not found
-        response.status(404).send('');
+        let error = StatusResponse.error("Local ID not found");
+    
+        response.setHeader('Content-Type', 'application/json');
+        response.status(404).send(JSON.stringify(error));
     }
     else
     {
         if (dbContext.removeDocument(index, target.document) === true)
         {
-            response.status(200).send("Document removed");
-        }
-        else
-        {
-            response.status(406).send('');
+            let success = StatusResponse.success("Document removed");
+
+            response.setHeader('Content-Type', 'application/json');
+            response.status(200).send(JSON.stringify(success));
         }
     }
 }

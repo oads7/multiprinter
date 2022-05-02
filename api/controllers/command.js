@@ -19,6 +19,8 @@ function httpGet(request, response)
     let localID = request.query.node;
     let index = dbContext.index(localID);
 
+    response.setHeader('Content-Type', 'application/json');
+
     if (index == -1) 
     {
         // Local ID not found
@@ -27,8 +29,10 @@ function httpGet(request, response)
     }
     else
     {
-        response.setHeader('Content-Type', 'application/json');
-
+        StatusResponse.success
         response.status(200).send(dbContext.getQueue(index));
     }
+
+
+    
 }

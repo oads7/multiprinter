@@ -15,7 +15,10 @@ module.exports = nodesController;
 // Declarations and statements
 function httpGet(request, response)
 {
-    response.status(200).send(dbContext.getAllNodes());
+    let success = StatusResponse.success(dbContext.getAllNodes());
+    
+    response.setHeader('Content-Type', 'application/json');
+    response.status(200).send(success);
 }
 
 function httpPost(request, response)
