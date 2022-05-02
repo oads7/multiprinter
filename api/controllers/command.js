@@ -8,9 +8,7 @@ const dbContext = require('../dbContext');
 // Exports
 const queueController = 
 {
-    get : httpGet,
-    post : httpPost,
-    delete : httpDelete
+    get : httpGet
 };
 module.exports = queueController;
 
