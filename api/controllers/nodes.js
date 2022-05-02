@@ -40,5 +40,5 @@ function httpPost(request, response)
     let success = StatusResponse.success("Subscription updated");
 
     response.setHeader('Content-Type', 'application/json');
-    response.status(200).send(success);
+    response.status(200).send(JSON.stringify(success));
 }

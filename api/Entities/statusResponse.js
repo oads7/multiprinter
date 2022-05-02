@@ -1,4 +1,8 @@
 'use strict';
+
+const { range } = require("express/lib/request");
+const { redirect } = require("express/lib/response");
+
 // Imports
 
 // Exports
@@ -13,21 +17,25 @@ class StatusResponse
     }
     static success(content)
     {
-        this.status = StatusResponseCode.Success;
-        this.content = content;
-        this.command = {};
-        this.error = "";
+        let r = new StatusResponse;
 
-        return this;
+        r.status = StatusResponseCode.Success;
+        r.content = content;
+        r.command = {};
+        r.error = "";
+
+        return r;
     }
     static error(message)
     {
-        this.status = StatusResponseCode.Error;
-        this.content = "";
-        this.command = {};
-        this.error = message;
+        let r = new StatusResponse;
 
-        return this;
+        r.status = StatusResponseCode.Error;
+        r.content = "";
+        r.command = {};
+        r.error = message;
+
+        return r;
     }
 }
 
