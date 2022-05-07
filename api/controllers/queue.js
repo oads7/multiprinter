@@ -1,6 +1,7 @@
 'use strict';
 
 // Imports
+const { StatusResponse, StatusResponseCode } =  require('../Entities/statusResponse');
 const dbContext = require('../dbContext');
 
 // Exports
@@ -46,18 +47,26 @@ function httpPost(request, response)
     if (index == -1) 
     {
         // Local ID not found
-        response.status(404).send('');
+        let error = StatusResponse.error("Local ID not found");
+    
+        response.setHeader('Content-Type', 'application/json');
+        response.status(404).send(JSON.stringify(error));
     }
     else
     {
         if (dbContext.addToQueue(index, target.printer, target.document) === true)
         {
+            let success = StatusResponse.success("Document queued");
+
             response.setHeader('Content-Type', 'application/json');
-            response.status(200).send("Document queued");
+            response.status(200).send(JSON.stringify(success));
         }
         else
         {
-            response.status(406).send('Paila de cola');
+            let error = StatusResponse.error("Queue error");
+    
+            response.setHeader('Content-Type', 'application/json');
+            response.status(406).send(JSON.stringify(error));
         }
     }
 }
@@ -71,7 +80,10 @@ function httpDelete(request, response)
     if (index == -1) 
     {
         // Local ID not found
-        response.status(404).send('');
+        let error = StatusResponse.error("Local ID not found");
+    
+        response.setHeader('Content-Type', 'application/json');
+        response.status(404).send(JSON.stringify(error));
     }
     else
     {
@@ -79,11 +91,17 @@ function httpDelete(request, response)
 
         if (dbContext.removeFromQueue(index, target.document) === true)
         {
-            response.status(200).send("Document queued");
+            let success = StatusResponse.success("Document queued out");
+
+            response.setHeader('Content-Type', 'application/json');
+            response.status(200).send(JSON.stringify(success));
         }
         else
         {
-            response.status(406).send('Paila de cola');
+            let error = StatusResponse.error("Queue error");
+    
+            response.setHeader('Content-Type', 'application/json');
+            response.status(406).send(JSON.stringify(error));
         }
     }
 }

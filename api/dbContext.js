@@ -7,6 +7,7 @@ const localNode = require('../models/localNode');
 const dbContext = 
 {
     createNode : dbContext_createNode,
+    deleteNode : dbContext_deleteNode,
     updatingNode : dbContext_updatingNode,
 
     index : dbContext_index,
@@ -33,6 +34,12 @@ function dbContext_createNode(localID, printers)
     dbContext_list.push(new localNode(localID, printers));
 }
 
+function dbContext_deleteNode(localID)
+{
+    dbContext_index.splice(localID, 1);
+    dbContext_list.splice(localID, 1);
+}
+
 function dbContext_getNodeByIndex(index)
 {
     return dbContext_list[index];
@@ -40,7 +47,7 @@ function dbContext_getNodeByIndex(index)
 
 function dbContext_getAllNodes()
 {
-    return JSON.stringify(dbContext_list);
+    return dbContext_list;
 }
 
 function dbContext_updatingNode(index, printers)

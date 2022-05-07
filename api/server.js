@@ -9,6 +9,8 @@ const nodesController = require('./controllers/nodes');
 const documentsController = require('./controllers/documents');
 const queueController = require('./controllers/queue');
 
+const cleanTimeMinutes = 5;
+
 // Exports
 const Server = 
 {
@@ -19,8 +21,9 @@ module.exports = Server;
 // Declarations and statements
 function entryPoint(port)
 {
+    setInterval(purifyData, 30000);
+
     const App = Express();
-    setTimeout(purifyData, 6000);
 
     // Parse URL-encoded bodies (as sent by HTML forms)
     App.use(Express.urlencoded( { extended: true } ));
@@ -36,7 +39,7 @@ function entryPoint(port)
         dbContext.createNode("DASDASHDJUAWJAKASD", ["Sharp 1", "Sharp 2", "Sharp 3", "Sharp 4"])
         dbContext.createNode("SA8ASADJASFJASZMCX", ["Toshiba 1", "Toshiba 2", "Toshiba 3"])
 
-        res.send("OK 200... Eres super genial.<br/><br/>" + dbContext.getAllNodes());
+        res.send("OK 200... Eres super genial.<br/><br/>" + JSON.stringify(dbContext.getAllNodes()));
     });
     App.get("/thumbnail", thumbnailController.get);
     
@@ -72,17 +75,22 @@ function middlewareCORS(request, response, next)
 
 function purifyData()
 {
-    let now = new Date();
+    let now = Date.now();
+    let listNodes = dbContext.getAllNodes();
+    let n = listNodes.length;
 
-    listNodes = dbContext.getAllNodes();
-
-    listNodes.forEach(element =>
+    for (let item = 0; item < n; item++)
     {
-        console.log(now.toDateString() + "-" + JSON.stringify(element));
-    });
-    
-
-
+        let diff = now - listNodes[item].lastConnection;
+        let minutes = diff / 60000;
+        
+        if (minutes > cleanTimeMinutes)
+        {
+            dbContext.deleteNode(item);
+            item--;
+            n--;
+        }
+    }
 }
 
 
