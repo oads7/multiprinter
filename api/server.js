@@ -20,6 +20,7 @@ module.exports = Server;
 function entryPoint(port)
 {
     const App = Express();
+    setTimeout(purifyData, 6000);
 
     // Parse URL-encoded bodies (as sent by HTML forms)
     App.use(Express.urlencoded( { extended: true } ));
@@ -67,6 +68,21 @@ function middlewareCORS(request, response, next)
     response.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
 
     next();
+}
+
+function purifyData()
+{
+    let now = new Date();
+
+    listNodes = dbContext.getAllNodes();
+
+    listNodes.forEach(element =>
+    {
+        console.log(now.toDateString() + "-" + JSON.stringify(element));
+    });
+    
+
+
 }
 
 
