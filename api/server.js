@@ -36,10 +36,7 @@ function entryPoint(port)
     // Entry points
     App.get("/", (req, res) =>
     {
-        dbContext.createNode("DASDASHDJUAWJAKASD", ["Sharp 1", "Sharp 2", "Sharp 3", "Sharp 4"])
-        dbContext.createNode("SA8ASADJASFJASZMCX", ["Toshiba 1", "Toshiba 2", "Toshiba 3"])
-
-        res.send("OK 200... Eres super genial.<br/><br/>" + JSON.stringify(dbContext.getAllNodes()));
+        res.send(JSON.stringify(dbContext.getAllNodes()));
     });
     App.get("/thumbnail", thumbnailController.get);
     
