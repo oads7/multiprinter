@@ -27,14 +27,10 @@ function httpGet(request, response)
     }
     else
     {
+        let success = StatusResponse.success(dbContext.getQueue(index));
+
         response.setHeader('Content-Type', 'application/json');
-
-        response.setHeader('Access-Control-Allow-Origin', '*');
-        response.setHeader('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
-        response.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE');
-        response.setHeader('Allow', 'GET, POST, DELETE');
-
-        response.status(200).send(dbContext.getQueue(index));
+        response.status(200).send(JSON.stringify(success));
     }
 }
 
@@ -99,7 +95,7 @@ function httpDelete(request, response)
         else
         {
             let error = StatusResponse.error("Queue error");
-    
+            
             response.setHeader('Content-Type', 'application/json');
             response.status(406).send(JSON.stringify(error));
         }

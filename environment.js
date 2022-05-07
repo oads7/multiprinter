@@ -11,7 +11,7 @@ const config =
     },
     ftpServer:
     {
-        path: '/htdocs/multiprint/',
+        path: '/htdocs/multiprint/images',
         config: { host: 'ftpupload.net', 
                   port: 21, 
                   user: 'epiz_31135069', 

@@ -4,7 +4,6 @@
 const { StatusResponse, StatusResponseCode } =  require('../Entities/statusResponse');
 const dbContext = require('../dbContext');
 
-
 // Exports
 const nodesController = 
 {
