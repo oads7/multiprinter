@@ -34,23 +34,23 @@ function entryPoint(port)
     App.use(middlewareCORS);
 
     // Entry points
-    App.get("/", (req, res) =>
+    App.get("/api", (req, res) =>
     {
         res.send(JSON.stringify(dbContext.getAllNodes()));
     });
-    App.get("/thumbnail", thumbnailController.get);
+    App.get("/api/thumbnail", thumbnailController.get);
     
-    App.get("/nodes", nodesController.get);
-    App.post("/nodes", nodesController.post);
+    App.get("/api/nodes", nodesController.get);
+    App.post("/api/nodes", nodesController.post);
 
-    App.get("/documents", documentsController.get);
-    App.post("/documents", documentsController.post);
-    App.delete("/documents", documentsController.delete);
+    App.get("/api/documents", documentsController.get);
+    App.post("/api/documents", documentsController.post);
+    App.delete("/api/documents", documentsController.delete);
     
-    App.get("/queue", queueController.get);
-    App.post("/queue", queueController.post);
-    App.delete("/queue", queueController.delete);
-
+    App.get("/api/queue", queueController.get);
+    App.post("/api/queue", queueController.post);
+    App.delete("/api/queue", queueController.delete);
+    
     // Starting server listener
     App.listen(port, listener);
 }
