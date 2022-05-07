@@ -10,10 +10,4 @@ const Environment = require('./environment');
 
 Server.start(Environment.server.port)
 
-
-
-
 console.log("APP-MAIN: " + Environment.server.port);
-
-
-
