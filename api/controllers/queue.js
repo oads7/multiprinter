@@ -29,7 +29,7 @@ function httpGet(request, response)
     }
     else
     {
-        let success = StatusResponse.success(dbContext.getQueue(index));
+        let success = StatusResponse.success(JSON.stringify(dbContext.getQueue(index)));
 
         response.setHeader('Content-Type', 'application/json');
         response.status(200).send(JSON.stringify(success));
