@@ -22,8 +22,10 @@ function httpGet(request, response)
 
     if (index == -1) 
     {
-        // Local ID not found
-        response.status(404).send('');
+        let error = StatusResponse.error("Local ID not found");
+    
+        response.setHeader('Content-Type', 'application/json');
+        response.status(404).send(JSON.stringify(error));
     }
     else
     {
