@@ -38,7 +38,7 @@ function httpGet(request, response)
 }
 
 function httpPost(request, response)
-// Example body   { id: "HKSAFHSDJCXVMXNA", document: 1467324743 }
+// Example body   { id: "HKSAFHSDJCXVMXNA", document: 1467324743, pinCode: 5433 }
 {
     let target = request.body;
     let index = dbContext.index(target.id);
@@ -53,7 +53,7 @@ function httpPost(request, response)
     }
     else
     {
-        dbContext.addDocument(index, target.document)
+        dbContext.addDocument(index, target.document, target.pinCode)
         let success = StatusResponse.success("Document registered");
 
         response.setHeader('Content-Type', 'application/json');

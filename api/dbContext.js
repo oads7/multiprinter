@@ -61,10 +61,11 @@ function dbContext_index(localID)
     return dbContext_index.indexOf(localID);
 }
 
-function dbContext_addDocument(index, documentID)
+function dbContext_addDocument(index, documentID, pinCode)
 {
     let doc = { document: documentID,
-                date: new Date() };
+                date: new Date(),
+                pinCode };
 
     dbContext_list[index].jobs.push(doc);
 }
