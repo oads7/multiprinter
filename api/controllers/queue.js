@@ -37,7 +37,7 @@ function httpGet(request, response)
 }
 
 function httpPost(request, response)
-// Example body   { id: "HKSAFHSDJCXVMXNA", printer: "Toshiba 9500 Super", document: 1467324743 }
+// Example body   { id: "HKSAFHSDJCXVMXNA", document: 1467324743, pinCode: 3253 }
 {
     let target = request.body;
     let index = dbContext.index(target.id);
@@ -52,7 +52,7 @@ function httpPost(request, response)
     }
     else
     {
-        if (dbContext.addToQueue(index, target.printer, target.document) === true)
+        if (dbContext.addToQueue(index, target.printer, target.document, target.pinCode) === true)
         {
             let success = StatusResponse.success("Document queued");
 

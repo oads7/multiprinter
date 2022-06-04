@@ -95,12 +95,13 @@ function dbContext_getQueue(index)
     return dbContext_list[index].queue;
 }
 
-function dbContext_addToQueue(index, printerName, documentID)
+function dbContext_addToQueue(index, printerName, documentID, pin)
 {
     if (dbContext_removeDocument(index, documentID) === true)
     {
         let queueItem = { printer: printerName,
-                          document: documentID };
+                          document: documentID,
+                          pinCode: pin };
 
         dbContext_list[index].queue.push(queueItem);
         return true;

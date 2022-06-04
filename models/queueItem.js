@@ -4,10 +4,11 @@
 // Exports
 class queueItem
 {
-    constructor(printer, documentID)
+    constructor(printer, documentID, pinCode)
     {
         this.printer = printer;
         this.documentID = documentID;
+        this.pinCode = pinCode;
     }
 }
 module.exports = queueItem;
